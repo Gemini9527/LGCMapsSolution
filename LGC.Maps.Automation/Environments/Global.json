@@ -1,0 +1,12 @@
+{
+  "AppEnvironments": [
+    {
+      "environment": "develop",
+      "appUrl": "https://www.google.com/maps"
+    },
+    {
+      "environment": "production",
+      "appUrl": "https://www.google.ie/maps"
+    }
+  ]
+}
