@@ -26,10 +26,16 @@ namespace LGC.AutoFramework.Browser
         public IWebElement WaitForLoad(By bySelector, short timeoutSeconds = 90)
         {
             short retryFrequencySeconds = 2;
+            var js = (IJavaScriptExecutor)Driver;
             for (short iCnt = 0; iCnt < timeoutSeconds; iCnt += retryFrequencySeconds)
             {
                 try
                 {
+                    if (!js.ExecuteScript("return document.readyState").ToString().Equals("complete"))
+                    {
+                        Thread.Sleep(retryFrequencySeconds * 1000);
+                        continue;
+                    }
                     var elem = Driver.FindElement(bySelector);
                     return elem;
                 }
