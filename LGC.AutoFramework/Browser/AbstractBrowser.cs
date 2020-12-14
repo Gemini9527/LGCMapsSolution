@@ -2,6 +2,7 @@
 using System.Threading;
 using log4net;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 
 namespace LGC.AutoFramework.Browser
 {
@@ -36,8 +37,8 @@ namespace LGC.AutoFramework.Browser
                         Thread.Sleep(retryFrequencySeconds * 1000);
                         continue;
                     }
-                    var elem = Driver.FindElement(bySelector);
-                    return elem;
+                    var wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(timeoutSeconds));
+                    return wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(bySelector));
                 }
                 catch(Exception)
                 {
