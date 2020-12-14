@@ -2,11 +2,13 @@
   "AppEnvironments": [
     {
       "environment": "develop",
-      "appUrl": "https://www.google.com/maps"
+      "appUrl": "https://www.google.com/maps",
+      "elementTimeout": 60
     },
     {
       "environment": "production",
-      "appUrl": "https://www.google.ie/maps"
+      "appUrl": "https://www.google.ie/maps",
+      "elementTimeout":  90 
     }
   ]
 }

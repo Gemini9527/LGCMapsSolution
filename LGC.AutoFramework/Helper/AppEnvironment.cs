@@ -7,6 +7,7 @@ namespace LGC.AutoFramework.Helper
     {
         public string Environment { get; set; }
         public string AppUrl { get; set; }
+        public uint ElementTimeout { get; set; }
     }
 
     public class AppEnvironmentRoot

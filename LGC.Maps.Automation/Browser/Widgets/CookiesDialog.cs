@@ -26,11 +26,17 @@ namespace LGC.Maps.Automation.Browser.Widgets
         {
             return WaitForLoad(Frame) != null;
         }
-        
-        public BaseMapPage AcceptCookies()
+
+        private CookiesDialog SwitchToCookiesFrame()
         {
             var dialogFrame = Driver.FindElement(Frame);
             Driver.SwitchTo().Frame(dialogFrame);
+            return this;
+        }
+
+        public BaseMapPage AcceptCookies()
+        {
+            SwitchToCookiesFrame();
             var acceptButton = Driver.FindElement(IAgreeButton);
             ClickOnElement(acceptButton);
             Log.Info($"AcceptCookies");

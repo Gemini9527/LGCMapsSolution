@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics;
 using LGC.AutoFramework.Helper;
 using LGC.Maps.Automation.Browser.PageObjects;
 using LGC.Maps.Automation.Browser.Widgets;
@@ -14,7 +13,6 @@ namespace LGC.Maps.Automation.Tests
     public class BaseTests
     {
         #region Properties Constants
-        private const string DriverExe = "chromedriver";
         private const string EnvName = "Develop";
         public static IWebDriver Driver { get; private set; }
         public static string AssemblyPath { get; private set; }
@@ -31,7 +29,7 @@ namespace LGC.Maps.Automation.Tests
             Console.WriteLine("Inside OneTimeSetUp");
             AssemblyPath = Framework.GetAssemblyPath();
             Env = Framework.GetAppEnvironment(EnvName);
-            KillChromeDriver();
+            BrowserActions.KillChromeDriver();
         }
 
         [SetUp] // one time before each test
@@ -62,7 +60,7 @@ namespace LGC.Maps.Automation.Tests
         {
             Logger.Debug("Inside TearDown");
             Driver.Close();
-            KillChromeDriver();
+            BrowserActions.KillChromeDriver();
         }
         #endregion
 
@@ -72,20 +70,11 @@ namespace LGC.Maps.Automation.Tests
         {
             XmlConfigurator.Configure();
         }
-
-        private void KillChromeDriver()
-        {
-            var processesChromeDriver = Process.GetProcessesByName(DriverExe);
-            foreach (Process p in processesChromeDriver)
-            {
-                p.Kill();
-            }
-        }
-
+        
         private void ManageDriver()
         {
             var myTimeout = Driver.Manage().Timeouts();
-            myTimeout.ImplicitWait = TimeSpan.FromSeconds(60);  // This should be also be a Constant value
+            myTimeout.ImplicitWait = TimeSpan.FromSeconds(Env.ElementTimeout);  // This should be also be a Constant value
 
             Driver.Manage().Window.Maximize();
             var sizeWnd = Driver.Manage().Window.Size;
