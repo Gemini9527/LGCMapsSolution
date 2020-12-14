@@ -14,5 +14,10 @@ namespace LGC.AutoFramework.Browser
             Driver.Url = url;
             return this;
         }
+
+        public string GetTitle()
+        {
+            return Driver.Title;
+        }
     }
 }
